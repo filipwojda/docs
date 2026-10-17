@@ -1,0 +1,48 @@
+---
+title: "Instant and Deep"
+description: "Deep for any real design brief, Instant for quick lookups."
+---
+
+`search_sections` has two modes. Ask your agent for a deep search, or set `mode: "deep"`; Instant is the default.
+
+## Deep: for any real brief
+
+Deep takes a closer look and puts the best first. Use it whenever the brief is about how something should look:
+
+- **A look or a mood:** "quiet and architectural, lots of white, one big serif headline".
+- **What to avoid:** "a pricing table, not dark", "a hero without a gradient".
+- **Lookalikes:** "navigation like stripe.com, but playful".
+- **Several constraints at once:** "a feature grid for a developer tool, uneven cards, one with a code sample, monochrome".
+
+A Deep search takes about a minute and uses one Deep credit.
+
+- The same search again on the same day uses no further credit.
+- A search that can't finish isn't charged.
+- With no credits left, it runs as Instant, and says so.
+- Clients that stop waiting before a minute get its first results; the same search again returns the rest. Claude Code waits for the whole answer.
+- Deep needs a description to work from: a search with only `contains`, an empty `q`, or `like` runs as Instant and counts as one.
+
+## Instant: quick lookups
+
+Instant answers in seconds (up to about 10 for a brief it hasn't seen before). Use it for:
+
+- **Text on the page:** `contains: "Book a demo"`.
+- **A named site:** "linear footer".
+- **Browsing:** an empty `q`, optionally with `roles` or `sites`.
+- **A kind of section** with no particular look in mind.
+
+## Plans and limits
+
+Agents come with Pro and Studio, and share the plan with the site.
+
+| | Pro | Studio |
+| --- | --- | --- |
+| Price | $20 a month | $60 a month |
+| Deep searches | 60 a month | 250 a month |
+| Instant searches | 1,000 a month | 2,500 a month |
+| Searches a minute, per agent | 30 | 120 |
+| Sections viewed or read a day | 2,000 | 2,000 |
+
+- Unused Deep credits expire with their month. [100 more Deep searches](https://www.regards.design/pricing) cost $25, on any plan, and last a year.
+- `view_section`, `get_section` and `page_sections` use no search; each section they open counts toward the day's sections.
+- Past the per-minute pace, a search answers with how many seconds to wait.

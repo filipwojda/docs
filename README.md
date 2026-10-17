@@ -1,32 +1,29 @@
-# Mintlify Starter Kit
+# regards.design docs
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+The public docs for the regards.design MCP server, on [Mintlify](https://mintlify.com): what it indexes, how to
+connect each client, Instant and Deep, the tools and example prompts. Everything in them is taken from the app's
+code (the `aggregator` repo): `src/lib/server/mcp/server.ts` for the tools, `src/lib/agents/clients.ts` for the
+clients, `src/lib/billing/plans.ts` and the guard's limits for plans. Change them together.
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+| page | |
+| --- | --- |
+| `index.mdx` | Overview |
+| `connect.mdx` | Connect your agent |
+| `deep.mdx` | Instant and Deep, plans and limits |
+| `tools.mdx` | The five tools, their parameters, coordinates |
+| `examples.mdx` | Example prompts |
 
-### Development
+Our name in body copy goes through `<Regards domain />` (`snippets/regards.jsx`), the mark before the word as
+the site draws it; titles, URLs and code stay plain. `logo/light.svg` and `logo/dark.svg` are drawn by
+`scripts/lockup.py` from the app's `static/logo/mark-small.svg` and Public Sans.
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+## Preview
 
 ```
-npm i -g mintlify
+npx mint dev
+npx mint broken-links
 ```
 
-Run the following command at the root of your documentation (where docs.json is)
+## Publish
 
-```
-mintlify dev
-```
-
-### Publishing Changes
-
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
-
-#### Troubleshooting
-
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+Mintlify deploys the branch its GitHub app watches (main) on every push.

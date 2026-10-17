@@ -1,0 +1,95 @@
+---
+title: "Connect your agent"
+description: "Add the server, sign in once, and ask for references."
+---
+
+import { Regards } from '/snippets/regards.jsx';
+
+Every client connects to the same server and signs in with OAuth: it opens <Regards domain />, you click Allow, and there is no key to paste.
+
+```text Server URL
+https://mcp.regards.design/mcp
+```
+
+## Claude
+
+One connector per Claude account reaches Claude Desktop, claude.ai and the phone apps. Add it [from Claude's directory](https://claude.ai/directory/regards-design), or [as a custom connector](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=regards.design&connectorUrl=https%3A%2F%2Fmcp.regards.design%2Fmcp) with the name and URL filled in. Click Add, then Connect, and Allow.
+
+### Claude Code
+
+```bash
+claude mcp add --transport http regards https://mcp.regards.design/mcp
+```
+
+Then run `/mcp`, pick `regards` and sign in.
+
+## ChatGPT
+
+Open [the listing in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ad0249252908191b7c3d3e6899959e1), connect, and sign in. Results show as a grid of screenshots.
+
+## Cursor
+
+[Add to Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=regards&config=eyJ1cmwiOiJodHRwczovL21jcC5yZWdhcmRzLmRlc2lnbi9tY3AifQ%3D%3D), or add it to your config:
+
+```json ~/.cursor/mcp.json
+{
+  "mcpServers": {
+    "regards": { "url": "https://mcp.regards.design/mcp" }
+  }
+}
+```
+
+Then click Connect beside `regards` in Settings → Tools & MCP, and Allow.
+
+## Codex
+
+The Codex app, CLI and IDE extension share one setup.
+
+```bash
+codex mcp add regards --url https://mcp.regards.design/mcp
+```
+
+It opens the sign-in. If it doesn't, run `codex mcp login regards`.
+
+## Grok
+
+- **Grok on the web and in its apps:** [grok.com/connectors](https://grok.com/connectors) → New Connector → Custom, paste the server URL, and Allow.
+- **Grok Bot:** send it "Add a custom MCP server called regards at https://mcp.regards.design/mcp", or add the server in Settings → Plugins.
+- **Grok Build:** `grok mcp add regards https://mcp.regards.design/mcp`, then sign in when it asks.
+
+## Figma
+
+The Figma agent in Design files and Figma Make, on paid Figma plans. Add it as a custom connector:
+
+<Steps>
+  <Step title="Open the agent's chat">
+    Agents in the left bar of a Design file, or Figma Make's own chat.
+  </Step>
+  <Step title="Open Connectors">
+    Click Add context (+) in the prompt box, then Connectors (then Manage, if you already have some).
+  </Step>
+  <Step title="Create the connector">
+    Under Created by you, click Create. Name it regards.design, click Next, paste the server URL and click Create.
+  </Step>
+  <Step title="Connect">
+    Click Connect, and Allow.
+  </Step>
+</Steps>
+
+Figma asks before each search; choose Always run to stop the asking.
+
+## Any other client
+
+VS Code, Windsurf, Zed and the rest: add it as a remote (HTTP) server.
+
+```json
+{
+  "mcpServers": {
+    "regards": { "type": "http", "url": "https://mcp.regards.design/mcp" }
+  }
+}
+```
+
+## The skill
+
+Agents read how to brief a search, look at what it finds and widen from it from the server itself, with nothing to install. For Claude Code, Codex and Figma it also comes as a file: [SKILL.md](https://www.regards.design/agents/SKILL.md).

@@ -1,0 +1,4 @@
+/* the mark turns over at night (light lines on dark), as the site's .ink-art does (snippets/regards.jsx) */
+.dark .regards-mark {
+  filter: invert(1);
+}

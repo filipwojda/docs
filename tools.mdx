@@ -1,0 +1,80 @@
+---
+title: "Tools"
+description: "Five read-only tools: find sections, see one, read one, a whole page, and more like these."
+---
+
+import { Regards } from '/snippets/regards.jsx';
+
+| Tool | What it's for |
+| --- | --- |
+| `search_sections` | Find sections by how they look, what they show and say, and how unusual they are. |
+| `view_section` | See a section: its screenshots stitched into one image. Judge by this, not the one-line summary. |
+| `get_section` | One section in full: its annotation, the text it shows, its page and more from its site. |
+| `page_sections` | A captured page's sections in order, top to bottom: its structure and rhythm. |
+| `similar_sections` | Sections from any site that look and read like the ones you picked. |
+
+Keys look like `linear/03`: a page id, then the section. `get_section`, `view_section`, `page_sections` and `similar_sections` take an optional `search_id`, the `searchId` of the search a key came from, so we learn which results helped.
+
+## search_sections
+
+`q` is read like a designer's brief: the kinds of section, named sites, the kind of page, what to avoid, motion and novelty. `understood` and `applied` show how it was read.
+
+| Parameter | |
+| --- | --- |
+| `q` | What to find, from a few words to a 2,000-character brief. Empty: browse the most distinctive sections. |
+| `mode` | `instant` (the default) or `deep`. See [Instant and Deep](/deep). |
+| `limit` | How many results, 1 to 60 (default 12). |
+| `roles` | Only these kinds of section. Usually left out: the query is read for them. |
+| `sites` | Only these sites: a host (`linear.app`), a name (`linear`) or a page id. |
+| `page` | `home` for sites' main pages, `subpage` for the rest. |
+| `like` | Section keys: also find sections that look and read like these. |
+| `contains` | Only sections that visibly show this text, as whole words, the exact phrase in large type first. |
+| `ignore` | Parts of the query's reading to drop, such as `["roles"]` when it picked the wrong kind of section. |
+| `exclude_sites` | Sites to leave out: a host, a name or a page id. |
+| `exclude_keys` | Sections to leave out, with their other parts and repeats. |
+| `diversity` | `"site"`: at most one section per site, instead of two. |
+
+Results come in groups: `exact` (a site you named), `match`, `related`, `similar` and `browse`. Each hit has its `key`, `site`, kind of section (`role`), a one-line `summary`, `novelty` from 1 (template) to 5 (experimental), whether it moves (`motion`), what found it (`match.via`), its screenshot tiles, its `geometry`, and `links`: `app`, its page on <Regards domain />, and `live`, the live page.
+
+### Search in rounds
+
+An agent searches, looks, turns hits down and searches again. Pass the keys it has already seen as `exclude_keys`, and sites that keep coming back as `exclude_sites`. They are left out before anything is ranked, so the search still fills `limit` with others, and `applied.exclude` lists what was left out. Both work in `search_sections` and `similar_sections`, Instant and Deep.
+
+```json
+{
+  "q": "pricing table with a highlighted plan",
+  "mode": "deep",
+  "exclude_keys": ["subframe/07", "parallel/03"],
+  "exclude_sites": ["e2b"]
+}
+```
+
+A Deep search that leaves different sections out is a new search, and uses its own credit.
+
+## view_section
+
+One image of the section's screenshot tiles, stitched top to bottom, with a text answer that maps image px back to page px.
+
+| Parameter | |
+| --- | --- |
+| `key` | A section key (`hit.key`). |
+| `max_px` | The image's long edge, 256 to 4,096 px (default 1,568). |
+| `context_px` | Page px of the sections above and below to show, up to 2,400, with thin magenta lines where the section starts and ends. |
+| `from_px`, `to_px` | Show only part of it, in section px (0 is its top), such as a text block from `get_section`. |
+| `format` | `jpeg` (the default), `png` or `webp`. |
+
+## get_section
+
+`key`. The section in full: its annotation (layout, presentation, style tags, the details a designer would point out with a name for each technique and where it is, and what moves on the live page), its tiles in every size, the text it shows (each block with its rect, font size and heading level), its page with every section on it in brief, and sections from the site's other pages. It returns no image; `view_section` shows the section.
+
+## page_sections
+
+`page`: a page id (`hit.page.id`), or any section key on that page. The page's sections top to bottom, each with its kind, summary, novelty, tiles and geometry.
+
+## similar_sections
+
+`keys`: 1 to 20 section keys to find more like, from any site. `q` steers it ("like these but light"); `limit`, `roles`, `sites`, `page` and `contains` filter it; `exclude_sites`, `exclude_keys` and `diversity` work as in `search_sections`. It answers in one group, `similar`.
+
+## Coordinates
+
+Positions come from our capture of the page (`page.shotAt`, at `page.viewport`, usually 1440×900), not today's live page. `geometry.top` and `geometry.height` place the section in CSS px from the top of the captured page; `left` and `right` are its horizontal crop. `images.tiles` are its screenshots top to bottom at `page.dsf`× pixels, each with `top` and `height` in section px, where 0 is the section's top.
